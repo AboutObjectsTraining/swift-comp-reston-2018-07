@@ -35,3 +35,25 @@ class OptionalsLabTests: XCTestCase
     }
 }
 
+
+// MARK: - Additional Examples
+
+let wrappedWords: [String?] = [nil, "Apple", nil, "Orange"]
+
+extension OptionalsLabTests
+{
+    func testForLoopUnwrapping() {
+        var unwrappedWords = [String]()
+        for word in wrappedWords {
+            guard let unwrappedWord = word else {
+                continue
+            }
+            unwrappedWords.append(unwrappedWord)
+        }
+        print(unwrappedWords)
+    }
+    
+    func testCompactMapUnwrapping() {
+        print(wrappedWords.compactMap { $0 })
+    }
+}

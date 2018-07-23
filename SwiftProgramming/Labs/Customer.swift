@@ -10,19 +10,20 @@ struct Address: CustomStringConvertible {
     let city: String
     let state: String
     
+    var fullStreet: String {
+        guard let street2 = street2 else { return street }
+        return "\(street), \(street2)"
+    }
+    
+    var description: String {
+        return "street: \(street), city: \(city), state: \(state)"
+    }
+    
     init(street: String, street2: String? = nil, city: String, state: String) {
         self.street = street
         self.street2 = street2
         self.city = city
         self.state = state
-    }
-    
-    var fullStreet: String {
-        guard let street2 = street2 else { return street }
-        return "\(street), \(street2)"
-    }
-    var description: String {
-        return "street: \(street), city: \(city), state: \(state)"
     }
 }
 
@@ -30,7 +31,6 @@ class Customer: CustomStringConvertible
 {
     var name: String?
     var address: Address?
-//    lazy var cart: Cart? = Cart()
     
     init() { }
     init(name: String?, address: Address?) {
@@ -40,15 +40,13 @@ class Customer: CustomStringConvertible
     
     var description: String {
         let address: Any = self.address ?? "N/A"
-        return "name: \(name ?? "N/A")\n"
-            + "address: \(address)\n"
+        return "name: \(name ?? "N/A")\n" + "address: \(address)\n"
     }
 }
 
 extension Array where Element: Customer
 {
-    func customer(named name: String) -> Customer?
-    {
+    func customer(named name: String) -> Customer? {
         for customer in self {
             if let currName = customer.name, currName == name {
                 return customer
