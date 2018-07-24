@@ -34,7 +34,7 @@ protocol Friendable
 }
 
 // MARK: - Person Class
-class Person: Likeable, Friendable, CustomDebugStringConvertible
+class Person: CustomDebugStringConvertible
 {
     // MARK: Person Properties
     var firstName: String
@@ -57,16 +57,11 @@ class Person: Likeable, Friendable, CustomDebugStringConvertible
         self.firstName = firstName
         self.lastName = lastName
     }
-    
-    convenience init(_ firstName: String, _ lastName: String, _ friendID: Int) {
-        self.init(firstName: firstName, lastName: lastName)
-        self.friendID = friendID
-    }
 }
 
 
 // MARK: - Person's Likeable Methods
-extension Person
+extension Person : Likeable
 {
     func like() {
         numberOfLikes += 1
@@ -79,8 +74,17 @@ extension Person
     }
 }
 
+
+func ==(lhs: Friendable, rhs: Friendable) -> Bool {
+    return lhs.friendID == rhs.friendID
+}
+
+func !=(lhs: Friendable, rhs: Friendable) -> Bool {
+    return lhs.friendID != rhs.friendID
+}
+
 // MARK: - Person's Friendable Methods
-extension Person
+extension Person: Friendable
 {
     func friend(_ newFriend: Friendable) {
         friends.append(newFriend)
@@ -88,15 +92,13 @@ extension Person
     
     func unfriend(_ oldFriend: Friendable) {
         friends = friends.filter { currFriend in
-            return currFriend.friendID != oldFriend.friendID
+            return currFriend != oldFriend
         }
     }
     
     func unfriend2(_ oldFriend: Friendable) {
-        let index = friends.index { oldFriend.friendID == $0.friendID }
-
-        if index == nil { return }
-        friends.remove(at: index!)
+        guard let index = friends.index(where: { oldFriend == $0 }) else { return }
+        friends.remove(at: index)
     }
 }
 

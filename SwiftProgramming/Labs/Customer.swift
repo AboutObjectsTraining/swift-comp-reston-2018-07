@@ -40,6 +40,7 @@ class Customer: CustomStringConvertible
     
     var description: String {
         let address: Any = self.address ?? "N/A"
+//        let name = self.name == nil ? "N/A" : self.name!
         return "name: \(name ?? "N/A")\n" + "address: \(address)\n"
     }
 }

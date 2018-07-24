@@ -3,6 +3,15 @@
 //
 import XCTest
 
+extension Person
+{
+    convenience init(_ firstName: String, _ lastName: String, _ friendID: Int) {
+        self.init(firstName: firstName, lastName: lastName)
+        self.friendID = friendID
+    }
+}
+
+
 // Note: we need to specify the array type here because otherwise the
 // Swift runtime doesn't see the type [Persons] as a match for [Friendable].
 //
@@ -17,15 +26,15 @@ let persons = [
     Person("Jill", "Ross", 108),
 ]
 
-func ==(lhs: Friendable, rhs: Friendable) -> Bool
-{
-    return lhs.friendID == rhs.friendID
-}
-
-func !=(lhs: Friendable, rhs: Friendable) -> Bool
-{
-    return lhs.friendID != rhs.friendID
-}
+//func ==(lhs: Friendable, rhs: Friendable) -> Bool
+//{
+//    return lhs.friendID == rhs.friendID
+//}
+//
+//func !=(lhs: Friendable, rhs: Friendable) -> Bool
+//{
+//    return lhs.friendID != rhs.friendID
+//}
 
 class ClassesLabTests: XCTestCase
 {
