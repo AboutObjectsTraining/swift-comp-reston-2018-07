@@ -414,7 +414,7 @@ class MiscTests: XCTestCase
             print("Some other file error occurred.")
         }
         catch {
-            print("Unexpected error.")
+            print("Unexpected error, \(error).")
         }
         
         print("End of test")
