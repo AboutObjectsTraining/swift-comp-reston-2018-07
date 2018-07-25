@@ -14,19 +14,66 @@ class CoolViewCell: UIView
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layer.cornerRadius = 10
-        layer.masksToBounds = true
-        layer.borderWidth = 3
-        layer.borderColor = UIColor.white.cgColor
+        configureLayer()
+        configureGestureRecognizer()
     }
     
     // TODO: implement me!
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private func configureGestureRecognizer() {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(bounce))
+        recognizer.numberOfTapsRequired = 2
+        addGestureRecognizer(recognizer)
+    }
+    
+    private func configureLayer() {
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
+        layer.borderWidth = 3
+        layer.borderColor = UIColor.white.cgColor
+    }
 }
 
-// MARK: Custom drawing
+private let bounceDuration: TimeInterval = 1.0
+private let bounceSize = CGSize(width: 120, height: 240)
+
+// MARK: - Action methods
+extension CoolViewCell
+{
+    @objc func bounce() {
+        print("In \(#function)")
+        animateBounce(duration: bounceDuration, size: bounceSize)
+    }
+}
+
+// MARK: - Animation
+extension CoolViewCell
+{
+    func animateBounce(duration: TimeInterval, size: CGSize) {
+        UIView.animate(withDuration: duration,
+                       animations: { [weak self] in self?.configureBounce(duration: duration, size: size)  },
+                       completion: { [weak self] _ in self?.animateFinalBounce(duration: duration, size: size) })
+    }
+    
+    func animateFinalBounce(duration: TimeInterval, size: CGSize) {
+        print("In \(#function)")
+        UIView.animate(withDuration: duration) { [weak self] in
+            self?.transform = .identity
+        }
+    }
+    
+    func configureBounce(duration: TimeInterval, size: CGSize) {
+        UIView.setAnimationRepeatCount(3.5)
+        UIView.setAnimationRepeatAutoreverses(true)
+        let translation = CGAffineTransform(translationX: size.width, y: size.height)
+        transform = translation.rotated(by: .pi/2)
+    }
+}
+
+// MARK: - Custom drawing
 extension CoolViewCell
 {
     class var textAttributes: [NSAttributedStringKey: Any] {
@@ -47,8 +94,7 @@ extension CoolViewCell
     }
 }
 
-
-// MARK: UIResponder touch handling methods
+// MARK: - UIResponder touch handling methods
 extension CoolViewCell
 {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

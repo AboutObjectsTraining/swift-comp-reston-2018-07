@@ -2,12 +2,11 @@ import UIKit
 
 class CoolView: UIView
 {
-    let accessoryView: UIView
+    let accessoryView: AccessoryView
     let contentView: UIView
     
     override init(frame: CGRect) {
-        accessoryView = UIView(frame: frame.divided(atDistance: 70, from: .minYEdge).slice)
-        accessoryView.backgroundColor = UIColor(white: 1.0, alpha: 0.7)
+        accessoryView = AccessoryView(frame: frame.divided(atDistance: 70, from: .minYEdge).slice)
         contentView = UIView(frame: frame.divided(atDistance: 70, from: .minYEdge).remainder)
         contentView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
 
@@ -18,6 +17,8 @@ class CoolView: UIView
     }
     
     func configureSubviews() {
+        accessoryView.coolView = self
+        
         addSubview(accessoryView)
         addSubview(contentView)
         
@@ -41,6 +42,13 @@ class CoolView: UIView
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func addCell(text: String) {
+        let newCell = CoolViewCell()
+        newCell.text = text
+        newCell.sizeToFit()
+        contentView.addSubview(newCell)
     }
 }
 

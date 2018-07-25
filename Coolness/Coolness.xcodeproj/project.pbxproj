@@ -13,6 +13,7 @@
 		ABA4AAB121067F79000231BF /* CoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA4AAB021067F79000231BF /* CoolViewController.swift */; };
 		ABA4AAB321068819000231BF /* CoolViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA4AAB221068819000231BF /* CoolViewCell.swift */; };
 		ABA4AAB521077681000231BF /* CoolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA4AAB421077681000231BF /* CoolView.swift */; };
+		ABA4AAB72107CF6F000231BF /* AccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA4AAB62107CF6F000231BF /* AccessoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		ABA4AAB021067F79000231BF /* CoolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolViewController.swift; sourceTree = "<group>"; };
 		ABA4AAB221068819000231BF /* CoolViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolViewCell.swift; sourceTree = "<group>"; };
 		ABA4AAB421077681000231BF /* CoolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoolView.swift; sourceTree = "<group>"; };
+		ABA4AAB62107CF6F000231BF /* AccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				ABA4AA9E21065F4D000231BF /* AppDelegate.swift */,
 				ABA4AAB021067F79000231BF /* CoolViewController.swift */,
 				ABA4AAB421077681000231BF /* CoolView.swift */,
+				ABA4AAB62107CF6F000231BF /* AccessoryView.swift */,
 				ABA4AAB221068819000231BF /* CoolViewCell.swift */,
 				ABA4AAA521065F50000231BF /* Assets.xcassets */,
 				ABA4AAA721065F50000231BF /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABA4AA9F21065F4D000231BF /* AppDelegate.swift in Sources */,
+				ABA4AAB72107CF6F000231BF /* AccessoryView.swift in Sources */,
 				ABA4AAB521077681000231BF /* CoolView.swift in Sources */,
 				ABA4AAB121067F79000231BF /* CoolViewController.swift in Sources */,
 				ABA4AAB321068819000231BF /* CoolViewCell.swift in Sources */,
