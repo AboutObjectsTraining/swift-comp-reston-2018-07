@@ -20,6 +20,7 @@ class AccessoryView: UIView
         addSubview(textField)
         textField.placeholder = "Enter some text"
         textField.borderStyle = .roundedRect
+        textField.delegate = self
         
         let button = UIButton(type: .system)
         button.setTitle("Add", for: .normal)
@@ -35,3 +36,12 @@ class AccessoryView: UIView
         coolView?.addCell(text: textField.text ?? "")
     }
 }
+
+extension AccessoryView: UITextFieldDelegate
+{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+

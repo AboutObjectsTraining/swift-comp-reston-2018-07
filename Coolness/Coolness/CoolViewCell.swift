@@ -101,27 +101,57 @@ extension CoolViewCell
         highlighted = true
         superview?.bringSubview(toFront: self)
     }
-    
+
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let currLocation = touch.location(in: nil)
         let prevLocation = touch.previousLocation(in: nil)
-        
+
         let dx = currLocation.x - prevLocation.x
         let dy = currLocation.y - prevLocation.y
-        
+
         frame = frame.offsetBy(dx: dx, dy: dy)
     }
-    
+
     func endTouch(_ touch: UITouch?) {
         highlighted = false
     }
-    
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         endTouch(touches.first)
     }
-    
+
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         endTouch(touches.first)
     }
 }
+
+//extension AppDelegate
+//{
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        guard let touchedView = touches.first?.view as? CoolViewCell else { return }
+//        touchedView.superview?.bringSubview(toFront: touchedView)
+//    }
+//
+//    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        guard let touch = touches.first else { return }
+//        let currLocation = touch.location(in: nil)
+//        let prevLocation = touch.previousLocation(in: nil)
+//
+//        let dx = currLocation.x - prevLocation.x
+//        let dy = currLocation.y - prevLocation.y
+//
+//        touch.view?.frame = touch.view?.frame.offsetBy(dx: dx, dy: dy) ?? .zero
+//    }
+//
+//    func endTouch(_ touch: UITouch?) {
+//    }
+//
+//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        endTouch(touches.first)
+//    }
+//
+//    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        endTouch(touches.first)
+//    }
+//}
