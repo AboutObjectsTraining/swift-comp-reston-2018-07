@@ -1,54 +1,48 @@
 import UIKit
+import Model
 
 class ReadingListController: UITableViewController
 {
     @IBOutlet var dataSource: ReadingListDataSource!
     
-    @IBAction func doneEditing(segue: UIStoryboardSegue) {
-        // TODO: sync UI and save
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.leftBarButtonItem = editButtonItem
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let controller = segue.destination as? ViewBookController else {
-            fatalError("Unable to downcast")
+        switch segue.identifier ?? "" {
+        case "Add":
+            guard let controller = segue.realDestination as? AddBookController else { return }
+            controller.completionHandler = { [weak self] book in self?.insert(book: book) }
+        case "View":
+            guard
+                let indexPath = tableView.indexPathForSelectedRow,
+                let controller = segue.realDestination as? ViewBookController else { return }
+            controller.book = dataSource.book(at: indexPath)
+        default:
+            return
         }
-        guard let indexPath = tableView.indexPathForSelectedRow else { return }
-        controller.book = dataSource.book(at: indexPath)
+    }
+    
+    func insert(book: Book) {
+        dataSource.insert(book: book, at: .zero)
+        tableView.insertRows(at: [.zero], with: .automatic)
+        dataSource.save()
     }
 }
 
-
-
-
-
-
-
-
-// MARK: - UITableViewDataSource methods
+// MARK: - Unwind segues
 extension ReadingListController
 {
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 100
-//    }
-//    
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Book Summary") else {
-//            fatalError("Unable to obtain a Book Summary cell; check the storyboard.")
-//        }
-//        cell.textLabel?.text = "Book \(indexPath.row + 1)"
-//        return cell
-//    }
+    @IBAction func doneEditing(segue: UIStoryboardSegue) {
+        tableView.reloadData()
+        dataSource.save()
+    }
     
-//    func tableViewExample(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        var myCell: UITableViewCell?
-//        if let cell = tableView.dequeueReusableCell(withIdentifier: "My Cool Cell") {
-//            myCell = cell
-//        } else {
-//            myCell = UITableViewCell(style: .default, reuseIdentifier: "My Cool Cell")
-//        }
-//
-//        myCell?.textLabel?.text = "Row \(indexPath.row + 1)"
-//
-//        return myCell!
-//    }
+    @IBAction func doneAdding(segue: UIStoryboardSegue) {
+        // TODO: Sync UI and save
+    }
+    
+    @IBAction func cancelAdding(segue: UIStoryboardSegue) { }
 }

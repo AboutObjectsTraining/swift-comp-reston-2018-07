@@ -18,5 +18,12 @@ class ViewBookController: UITableViewController
         lastNameLabel.text = book?.author?.lastName
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let editController = segue.realDestination as? EditBookController else {
+            fatalError("Uh oh!")
+        }
+        editController.book = book
+    }
+    
     @IBAction func cancelEditing(segue: UIStoryboardSegue) { }
 }
